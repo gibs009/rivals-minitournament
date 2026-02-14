@@ -64,17 +64,7 @@ if (standingsTable) {
 
 // LOAD NEXT MATCH (Live)
 
-const nextMatchDiv = document.getElementById("nextMatch");
-if (nextMatchDiv) {
-  database.ref('nextMatch').on('value', (snapshot) => {
-    const match = snapshot.val();
-    if (match) {
-      nextMatchDiv.innerText = `${match.teamA} VS ${match.teamB}`;
-    } else {
-      nextMatchDiv.innerText = "No match scheduled";
-    }
-  });
-}
+
 
 // Add a new team
 function addTeam() {
@@ -88,7 +78,7 @@ function addTeam() {
 }
 
 // Load and display teams
-
+window.onload = function() {
 const standingsTable = document.getElementById("standings");
 if (standingsTable) {
   database.ref('teams').on('value', (snapshot) => {
@@ -103,7 +93,7 @@ if (standingsTable) {
       </tr>`;
     }
   });
-
+}
 
 
 
@@ -131,6 +121,17 @@ if (standingsTable) {
   });
 }
 
+const nextMatchDiv = document.getElementById("nextMatch");
+if (nextMatchDiv) {
+  database.ref('nextMatch').on('value', (snapshot) => {
+    const match = snapshot.val();
+    if (match) {
+      nextMatchDiv.innerText = `${match.teamA} VS ${match.teamB}`;
+    } else {
+      nextMatchDiv.innerText = "No match scheduled";
+    }
+  });
+}
 // Update wins or losses
 function updateTeam(id, field, value) {
   database.ref('teams/' + id).update({ [field]: parseInt(value) || 0 });
