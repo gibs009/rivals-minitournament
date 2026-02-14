@@ -88,7 +88,7 @@ function addTeam() {
 }
 
 // Load and display teams
-window.onload = function() {
+
 const standingsTable = document.getElementById("standings");
 if (standingsTable) {
   database.ref('teams').on('value', (snapshot) => {
@@ -103,7 +103,7 @@ if (standingsTable) {
       </tr>`;
     }
   });
-}
+
 
 
 
