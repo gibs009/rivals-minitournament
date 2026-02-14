@@ -88,7 +88,25 @@ function addTeam() {
 }
 
 // Load and display teams
-function loadTeams() {
+window.onload = function() {
+const standingsTable = document.getElementById("standings");
+if (standingsTable) {
+  database.ref('teams').on('value', (snapshot) => {
+    const teams = snapshot.val();
+    standingsTable.innerHTML = '';
+    for (let id in teams) {
+      const t = teams[id];
+      standingsTable.innerHTML += `<tr>
+        <td>${t.name}</td>
+        <td>${t.wins}</td>
+        <td>${t.losses}</td>
+      </tr>`;
+    }
+  });
+}
+
+
+
   const table = document.getElementById("teamsTable");
   database.ref('teams').on('value', snapshot => {
     const teams = snapshot.val();
