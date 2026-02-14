@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Admin Panel</h1>
+
+<div class="admin-card">
+  <h3>Add Team</h3>
+  <input id="teamName" placeholder="Team Name">
+  <button onclick="addTeam()">Add Team</button>
+</div>
+
+<div class="admin-card">
+  <h3>Set Next Match</h3>
+  <input id="teamA" placeholder="Team A">
+  <input id="teamB" placeholder="Team B">
+  <button onclick="setMatch()">Save Match</button>
+</div>
+
+<button onclick="logout()">Logout</button>
+<a href="index.html">Home</a>
+
+
+
+<script src="script.js"></script>
+<!-- Firebase App (the core Firebase SDK) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+ const firebaseConfig = {
+  apiKey: "AIzaSyCINxXIbI2ZxdiRPDSK9QjXIrrS8vmr3W4",
+  authDomain: "rivals-minitournament.firebaseapp.com",
+  databaseURL: "https://rivals-minitournament-default-rtdb.firebaseio.com",
+  projectId: "rivals-minitournament",
+  storageBucket: "rivals-minitournament.firebasestorage.app",
+  messagingSenderId: "810208248444",
+  appId: "1:810208248444:web:fff1a57e38d404abcabff9"
+};
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+</script>
+
+</body>
+</html>
