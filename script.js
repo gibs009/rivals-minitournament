@@ -73,4 +73,60 @@ if (nextMatchDiv) {
   });
 }
 
+// Add a new team
+function addTeam() {
+  const name = document.getElementById("teamName").value.trim();
+  if (!name) return alert("Enter a team name!");
 
+  const newTeam = { name, wins: 0, losses: 0 };
+  database.ref('teams').push(newTeam);
+  document.getElementById("teamName").value = "";
+  alert("Team added!");
+}
+
+// Load and display teams
+function loadTeams() {
+  const table = document.getElementById("teamsTable");
+  database.ref('teams').on('value', snapshot => {
+    const teams = snapshot.val();
+    table.innerHTML = `
+      <tr>
+        <th>Team Name</th>
+        <th>Wins</th>
+        <th>Losses</th>
+        <th>Actions</th>
+      </tr>`;
+    for (let id in teams) {
+      const team = teams[id];
+      table.innerHTML += `
+        <tr>
+          <td>${team.name}</td>
+          <td><input type="number" min="0" value="${team.wins}" onchange="updateTeam('${id}', 'wins', this.value)"></td>
+          <td><input type="number" min="0" value="${team.losses}" onchange="updateTeam('${id}', 'losses', this.value)"></td>
+          <td><button onclick="deleteTeam('${id}')">Delete</button></td>
+        </tr>
+      `;
+    }
+  });
+}
+
+// Update wins or losses
+function updateTeam(id, field, value) {
+  database.ref('teams/' + id).update({ [field]: parseInt(value) || 0 });
+}
+
+// Delete a team
+function deleteTeam(id) {
+  if (confirm("Delete this team?")) {
+    database.ref('teams/' + id).remove();
+  }
+}
+
+// Logout
+function logout() {
+  localStorage.removeItem("admin");
+  window.location = "admin-login.html";
+}
+
+// Load teams when page loads
+window.onload = loadTeams;
