@@ -44,6 +44,7 @@ function setMatch() {
 }
 
 // LOAD STANDINGS (Live)
+window.onload = function() {
 const standingsTable = document.getElementById("standings");
 if (standingsTable) {
   database.ref('teams').on('value', (snapshot) => {
@@ -59,8 +60,10 @@ if (standingsTable) {
     }
   });
 }
+}
 
 // LOAD NEXT MATCH (Live)
+
 const nextMatchDiv = document.getElementById("nextMatch");
 if (nextMatchDiv) {
   database.ref('nextMatch').on('value', (snapshot) => {
